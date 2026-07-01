@@ -1,0 +1,19 @@
+# IDE
+.idea/
+
+# Python virtual environment
+.venv/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Claude Code
+CLAUDE.md
+
+# Environment
+.env
+.env.local
+
+# Old WordPress export (kept for reference, not deployed)
+Home - Standing Ovation_files/
