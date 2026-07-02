@@ -251,4 +251,113 @@ document.addEventListener('DOMContentLoaded', () => {
     sections.forEach((section) => observer.observe(section));
   }
 
+  // -------------------------------------------------------
+  // 7. Gallery Filter Buttons
+  // -------------------------------------------------------
+
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const galleryItems = document.querySelectorAll('.gallery-item');
+
+  if (filterBtns.length && galleryItems.length) {
+    filterBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        // Update active state on buttons
+        filterBtns.forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const filter = btn.getAttribute('data-filter');
+
+        // Show or hide items based on selected filter
+        galleryItems.forEach((item) => {
+          if (filter === 'all' || item.getAttribute('data-category') === filter) {
+            item.removeAttribute('hidden');
+            item.classList.remove('hidden');
+          } else {
+            item.setAttribute('hidden', '');
+            item.classList.add('hidden');
+          }
+        });
+      });
+    });
+  }
+
+  // -------------------------------------------------------
+  // 8. Gallery Lightbox
+  // -------------------------------------------------------
+
+  const lightboxOverlay = document.querySelector('.lightbox-overlay');
+
+  if (lightboxOverlay && galleryItems.length) {
+    const lightboxImg = lightboxOverlay.querySelector('.lightbox-content img');
+    const lightboxClose = lightboxOverlay.querySelector('.lightbox-close');
+    const lightboxPrev = lightboxOverlay.querySelector('.lightbox-prev');
+    const lightboxNext = lightboxOverlay.querySelector('.lightbox-next');
+    let currentIndex = -1;
+
+    /** Return only visible (not hidden) gallery items. */
+    const getVisibleItems = () => {
+      return Array.from(document.querySelectorAll('.gallery-item:not([hidden]):not(.hidden)'));
+    };
+
+    /** Open the lightbox at a given index within visible items. */
+    const openLightbox = (index) => {
+      const items = getVisibleItems();
+      if (index < 0 || index >= items.length) return;
+
+      currentIndex = index;
+      const img = items[index].querySelector('img');
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt;
+      lightboxOverlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      lightboxClose.focus();
+    };
+
+    /** Close the lightbox and restore scrolling. */
+    const closeLightbox = () => {
+      lightboxOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+      lightboxImg.src = '';
+    };
+
+    /** Navigate prev (-1) or next (+1) through visible items. */
+    const navigateLightbox = (direction) => {
+      const items = getVisibleItems();
+      if (!items.length) return;
+      currentIndex = (currentIndex + direction + items.length) % items.length;
+      const img = items[currentIndex].querySelector('img');
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt;
+    };
+
+    // Click a gallery item to open lightbox
+    galleryItems.forEach((item) => {
+      item.addEventListener('click', () => {
+        const items = getVisibleItems();
+        const idx = items.indexOf(item);
+        if (idx !== -1) openLightbox(idx);
+      });
+    });
+
+    // Close button
+    lightboxClose.addEventListener('click', closeLightbox);
+
+    // Prev / Next buttons
+    lightboxPrev.addEventListener('click', () => navigateLightbox(-1));
+    lightboxNext.addEventListener('click', () => navigateLightbox(1));
+
+    // Click on overlay background (not the image or controls) to close
+    lightboxOverlay.addEventListener('click', (e) => {
+      if (e.target === lightboxOverlay) closeLightbox();
+    });
+
+    // Keyboard navigation (Escape, ArrowLeft, ArrowRight)
+    document.addEventListener('keydown', (e) => {
+      if (!lightboxOverlay.classList.contains('active')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') navigateLightbox(-1);
+      if (e.key === 'ArrowRight') navigateLightbox(1);
+    });
+  }
+
 });

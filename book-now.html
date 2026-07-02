@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, maximum-scale=5.0">
+  <title>Book Now | Standing Ovation Cleaning Company</title>
+  <meta name="description" content="Book a cleaning service with Standing Ovation Cleaning Company LLC. Choose from power washing, deep cleaning, general cleaning, and more. Serving Northeast Ohio.">
+
+  <!-- Favicon -->
+  <link rel="icon" href="images/cropped-fab-icon-192x192.png" sizes="192x192">
+  <link rel="apple-touch-icon" href="images/cropped-fab-icon-180x180.png">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="container">
+      <div class="top-bar-left">
+        <p>Call us <a href="tel:+12162646494">216-264-6494</a></p>
+      </div>
+      <div class="top-bar-right">
+        <ul class="social-icons">
+          <li>
+            <a href="https://www.facebook.com/standingovationcleaningcompany" target="_blank" rel="noopener" aria-label="Facebook">
+              <img src="images/facebook.png" alt="Facebook icon" width="24" height="24">
+            </a>
+          </li>
+          <li>
+            <a href="https://twitter.com/intent/tweet?text=Standing+Ovation+Cleaning+Company+LLC&amp;url=https%3A%2F%2Fcleaningcompany.us" target="_blank" rel="noopener" aria-label="Twitter">
+              <img src="images/twitter.png" alt="Twitter icon" width="24" height="24">
+            </a>
+          </li>
+          <li>
+            <a href="https://www.instagram.com/standingovation_cleaning/" target="_blank" rel="noopener" aria-label="Instagram">
+              <img src="images/instagram.png" alt="Instagram icon" width="24" height="24">
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container">
+      <a href="index.html" class="logo">
+        <img src="images/logo-cutout-1.png" alt="Standing Ovation Cleaning Company logo" width="278" height="119">
+      </a>
+
+      <button class="mobile-menu-toggle" aria-label="Open navigation menu" aria-expanded="false" aria-controls="main-nav">
+        <span class="hamburger-icon"></span>
+      </button>
+
+      <nav id="main-nav" class="main-nav" aria-label="Main navigation">
+        <ul class="nav-list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li class="has-submenu">
+            <a href="services.html">Services</a>
+            <ul class="submenu">
+              <li><a href="general-cleaning.html">General Cleaning</a></li>
+              <li><a href="deep-cleaning.html">Deep Cleaning</a></li>
+              <li><a href="amenities.html">Amenities</a></li>
+            </ul>
+          </li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="book-now.html" class="btn btn-nav" aria-current="page">BOOK NOW</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- Hero Banner -->
+    <section class="hero hero-dark">
+      <div class="container">
+        <div class="hero-content">
+          <h1>Book Now</h1>
+        </div>
+      </div>
+    </section>
+
+    <!-- Booking Form -->
+    <section class="booking-section" id="booking">
+      <div class="container">
+        <div class="section-header">
+          <h2>Booking</h2>
+        </div>
+
+        <form class="booking-form" action="#" method="POST">
+          <div class="form-group">
+            <label for="service">Services</label>
+            <select id="service" name="service" required>
+              <option value="" disabled selected>Select a Service</option>
+              <option value="power-washing">Power Washing</option>
+              <option value="deep-cleaning">Deep Cleaning</option>
+              <option value="basic-general-cleaning">Basic / General Cleaning</option>
+              <option value="contract-cleaning">Contract Cleaning</option>
+              <option value="maid-service">Maid Service</option>
+              <option value="janitorial-cleaning">Janitorial Cleaning</option>
+              <option value="appliance-cleaning">Appliance Cleaning</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="date">Date</label>
+            <input type="date" id="date" name="date" required>
+          </div>
+
+          <div class="form-group">
+            <label for="time">Time</label>
+            <input type="time" id="time" name="time" min="09:00" max="18:00" step="900" required>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="first-name">First Name</label>
+              <input type="text" id="first-name" name="first_name" required maxlength="400" placeholder="First Name">
+            </div>
+            <div class="form-group">
+              <label for="last-name">Last Name</label>
+              <input type="text" id="last-name" name="last_name" maxlength="400" placeholder="Last Name">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" required maxlength="400" placeholder="Email">
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input type="tel" id="phone" name="phone" required maxlength="400" placeholder="Phone Number">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="message">Your Message</label>
+            <textarea id="message" name="message" maxlength="2000" rows="6" placeholder="Your Message"></textarea>
+          </div>
+
+          <div class="form-group form-group-checkbox">
+            <input type="checkbox" id="payment-disclosure" name="payment_disclosure" required>
+            <label for="payment-disclosure">I agree to the payment disclosure: All payments are due at the time services are rendered unless payment arrangements have been discussed prior to scheduled cleaning. If payment is not made at that time, there is a late fee of $50 for residential and $100 for commercial, then $25 a day thereafter for residential and $50 a day thereafter for commercial. Pricing varies for commercials. Residential deep clean pricing starts at .40 per sq ft. and may vary.</label>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-logo">
+        <a href="index.html">
+          <img src="images/logo-cutout-1.png" alt="Standing Ovation Cleaning Company logo" loading="lazy">
+        </a>
+      </div>
+
+      <ul class="footer-social">
+        <li>
+          <a href="https://www.facebook.com/standingovationcleaningcompany" target="_blank" rel="noopener" aria-label="Facebook">
+            <img src="images/facebook-black.png" alt="Facebook icon" loading="lazy">
+          </a>
+        </li>
+        <li>
+          <a href="https://twitter.com/intent/tweet?text=Standing+Ovation+Cleaning+Company+LLC&amp;url=https%3A%2F%2Fcleaningcompany.us" target="_blank" rel="noopener" aria-label="Twitter">
+            <img src="images/twitter-black.png" alt="Twitter icon" loading="lazy">
+          </a>
+        </li>
+        <li>
+          <a href="https://www.instagram.com/standingovation_cleaning/" target="_blank" rel="noopener" aria-label="Instagram">
+            <img src="images/instagram-black.png" alt="Instagram icon" loading="lazy">
+          </a>
+        </li>
+      </ul>
+
+      <div class="payment-icons">
+        <img src="images/images.png" alt="Credit card payments accepted" loading="lazy">
+        <img src="images/cashapp-icon-2048x2047-bgl2c1jd.png" alt="CashApp payments accepted" loading="lazy">
+        <img src="images/ov2lgrxqttiauqhbpsqf.png" alt="Additional payment method accepted" loading="lazy">
+      </div>
+
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+
+      <p class="copyright">Copyright &copy; 2026 Standing Ovation Cleaning Services</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, maximum-scale=5.0">
+  <title>Gallery | Standing Ovation Cleaning Company</title>
+  <meta name="description" content="Browse our portfolio of residential and commercial cleaning projects. Standing Ovation Cleaning Company LLC serves Northeast Ohio.">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Gallery | Standing Ovation Cleaning Company">
+  <meta property="og:description" content="Browse our portfolio of residential and commercial cleaning projects in Northeast Ohio.">
+  <meta property="og:url" content="https://standingovationcleaning.us/gallery.html">
+  <meta property="og:site_name" content="Standing Ovation Cleaning Company">
+  <meta property="og:image" content="images/logo-cutout-1.png">
+  <meta property="og:locale" content="en_US">
+
+  <!-- Favicon -->
+  <link rel="icon" href="images/cropped-fab-icon-192x192.png" sizes="192x192">
+  <link rel="apple-touch-icon" href="images/cropped-fab-icon-180x180.png">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css">
+
+  <!-- Gallery-specific styles -->
+  <style>
+    /* Hero Banner */
+    .gallery-hero {
+      background: linear-gradient(135deg, #2d1b4e 0%, #4a2d6e 50%, #2d1b4e 100%);
+      color: #fff;
+      text-align: center;
+      padding: 80px 0 60px;
+    }
+    .gallery-hero h1 {
+      font-size: 3rem;
+      margin: 0;
+      font-weight: 700;
+    }
+
+    /* Gallery Section */
+    .gallery-section {
+      padding: 60px 0 80px;
+    }
+    .gallery-intro {
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto 40px;
+    }
+    .gallery-intro h2 {
+      font-size: 2rem;
+      margin-bottom: 12px;
+    }
+    .gallery-intro p {
+      color: #666;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    /* Filter Buttons */
+    .gallery-filters {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+    .filter-btn {
+      padding: 10px 24px;
+      border: 2px solid #4a2d6e;
+      background: transparent;
+      color: #4a2d6e;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: #4a2d6e;
+      color: #fff;
+    }
+
+    /* Masonry Grid */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      cursor: pointer;
+      line-height: 0;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    .gallery-item.hidden {
+      display: none;
+    }
+    /* Varying spans for masonry feel */
+    .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+    .gallery-item:nth-child(5) { grid-column: span 2; }
+    .gallery-item:nth-child(8) { grid-row: span 2; }
+    .gallery-item:nth-child(12) { grid-column: span 2; }
+    .gallery-item:nth-child(16) { grid-column: span 2; grid-row: span 2; }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(45, 27, 78, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .gallery-item:hover .gallery-overlay {
+      opacity: 1;
+    }
+    .gallery-overlay span {
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: 600;
+      padding: 10px 22px;
+      border: 2px solid #fff;
+      border-radius: 30px;
+      letter-spacing: 0.5px;
+    }
+
+    /* Lightbox */
+    .lightbox-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.92);
+      z-index: 10000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+    .lightbox-overlay.active {
+      display: flex;
+    }
+    .lightbox-content {
+      position: relative;
+      max-width: 90vw;
+      max-height: 85vh;
+    }
+    .lightbox-content img {
+      max-width: 100%;
+      max-height: 85vh;
+      display: block;
+      border-radius: 4px;
+    }
+    .lightbox-close {
+      position: fixed;
+      top: 20px;
+      right: 24px;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 2.4rem;
+      cursor: pointer;
+      z-index: 10001;
+      line-height: 1;
+      padding: 4px 12px;
+      transition: opacity 0.2s;
+    }
+    .lightbox-close:hover {
+      opacity: 0.7;
+    }
+    .lightbox-prev,
+    .lightbox-next {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 2.8rem;
+      cursor: pointer;
+      z-index: 10001;
+      padding: 8px 16px;
+      transition: opacity 0.2s;
+    }
+    .lightbox-prev:hover,
+    .lightbox-next:hover {
+      opacity: 0.7;
+    }
+    .lightbox-prev { left: 16px; }
+    .lightbox-next { right: 16px; }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+      .gallery-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 1; }
+      .gallery-item:nth-child(16) { grid-column: span 1; grid-row: span 1; }
+    }
+    @media (max-width: 768px) {
+      .gallery-hero { padding: 60px 0 40px; }
+      .gallery-hero h1 { font-size: 2.2rem; }
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .gallery-item:nth-child(1),
+      .gallery-item:nth-child(5),
+      .gallery-item:nth-child(8),
+      .gallery-item:nth-child(12),
+      .gallery-item:nth-child(16) {
+        grid-column: span 1;
+        grid-row: span 1;
+      }
+    }
+    @media (max-width: 480px) {
+      .gallery-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="container">
+      <div class="top-bar-left">
+        <p>Call us <a href="tel:+12162646494">216-264-6494</a></p>
+      </div>
+      <div class="top-bar-right">
+        <ul class="social-icons">
+          <li>
+            <a href="https://www.facebook.com/standingovationcleaningcompany" target="_blank" rel="noopener" aria-label="Facebook">
+              <img src="images/facebook.png" alt="Facebook icon" width="24" height="24">
+            </a>
+          </li>
+          <li>
+            <a href="https://twitter.com/intent/tweet?text=Standing+Ovation+Cleaning+Company+LLC&amp;url=https%3A%2F%2Fcleaningcompany.us" target="_blank" rel="noopener" aria-label="Twitter">
+              <img src="images/twitter.png" alt="Twitter icon" width="24" height="24">
+            </a>
+          </li>
+          <li>
+            <a href="https://www.instagram.com/standingovation_cleaning/" target="_blank" rel="noopener" aria-label="Instagram">
+              <img src="images/instagram.png" alt="Instagram icon" width="24" height="24">
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container">
+      <a href="index.html" class="logo">
+        <img src="images/logo-cutout-1.png" alt="Standing Ovation Cleaning Company logo" width="278" height="119">
+      </a>
+
+      <button class="mobile-menu-toggle" aria-label="Open navigation menu" aria-expanded="false" aria-controls="main-nav">
+        <span class="hamburger-icon"></span>
+      </button>
+
+      <nav id="main-nav" class="main-nav" aria-label="Main navigation">
+        <ul class="nav-list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="gallery.html" aria-current="page">Gallery</a></li>
+          <li class="has-submenu">
+            <a href="services.html">Services</a>
+            <ul class="submenu">
+              <li><a href="general-cleaning.html">General Cleaning</a></li>
+              <li><a href="deep-cleaning.html">Deep Cleaning</a></li>
+              <li><a href="amenities.html">Amenities</a></li>
+            </ul>
+          </li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="book-now.html" class="btn btn-nav">BOOK NOW</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- Hero Banner -->
+    <section class="gallery-hero">
+      <div class="container">
+        <h1>Our Gallery</h1>
+      </div>
+    </section>
+
+    <!-- Gallery -->
+    <section class="gallery-section">
+      <div class="container">
+        <div class="gallery-intro">
+          <h2>See Our Work in Action</h2>
+          <p>Browse through our portfolio of residential and commercial cleaning projects.</p>
+        </div>
+
+        <!-- Filter Buttons -->
+        <div class="gallery-filters" role="group" aria-label="Filter gallery by category">
+          <button class="filter-btn active" data-filter="all" type="button">All</button>
+          <button class="filter-btn" data-filter="residential" type="button">Residential</button>
+          <button class="filter-btn" data-filter="commercial" type="button">Commercial</button>
+          <button class="filter-btn" data-filter="before-after" type="button">Before &amp; After</button>
+        </div>
+
+        <!-- Gallery Grid -->
+        <div class="gallery-grid">
+          <div class="gallery-item" data-category="residential">
+            <img src="images/img-1.jpg" alt="Standing Ovation cleaning project 1" loading="lazy">
+            <div class="gallery-overlay"><span>View</span></div>
+          </div>
+          <div class="gallery-item" data-category="residential">
+            <img src="images/img-2-400x284.jpg" alt="Standing Ovation cleaning project 2" loading="lazy">
+            <div class="gallery-overlay"><span>View</span></div>
+          </div>
+          <div class="gallery-item" data-category="residential">
+            <img src="images/img-3-400x284.jpg" alt="Standing Ovation cleaning project 3" loading="lazy">
+            <div class="gallery-overlay"><span>View</span></div>
+          </div>
+          <div class="gallery-item" data-category="residential">
+            <img src="images/img-4-400x284.jpg" alt="Standing Ovation cleaning project 4" loading="lazy">
+            <div class="gallery-overlay"><span>View</span></div>
+          </div>
+          <div class="gallery-item" data-category="residential">
+            <img src="images/img-5-400x284.jpg" alt="Standing Ovation cleaning project 5" loading="lazy">
+            <div class="gallery-overlay"><span>View</span></div>
+          </div>
+          <div class="gallery-item" data-category="residential">
+            <img src="images/img-6-400x284.jpg" alt="Standing Ovation cleaning project 6" loading="lazy">
+            <div class="gallery-overlay"><span>View</span></div>
+          </div>
+          <div class="gallery-item" data-category="residential">
+            <img src="images/img-7-400x284.jpg" alt="Standing Ovation cleaning project 7" loading="lazy">
+            <div class="gallery-overlay"><span>View</span></div>
+          </div>
+          <div class="gallery-item" data-category="commercial">
+            <img src="images/img-8-400x284.jpg" alt="Standing Ovation cleaning project 8" loading="lazy">
+            <div class="gallery-overlay"><span>View</span></div>
+          </div>
+          <div class="gallery-item" data-category="commercial">
+            <img src="images/img-9-400x284.jpg" alt="Standing Ovation cleaning project 9" loading="lazy">
+            <div class="gallery-overlay"><span>View</span></div>
+          </div>
+          <div class="gallery-item" data-category="commercial">
+            <img src="images/img-10-400x284.jpg" alt="Standing Ovation cleaning project 10" loading="lazy">
+            <div class="gallery-overlay"><span>View</span></div>
+          </div>
+          <div class="gallery-item" data-category="commercial">
+            <img src="images/img-11-400x284.jpg" alt="Standing Ovation cleaning project 11" loading="lazy">
+            <div class="gallery-overlay"><span>View</span></div>
+          </div>
+          <div class="gallery-item" data-category="commercial">
+            <img src="images/img-12-400x284.jpg" alt="Standing Ovation cleaning project 12" loading="lazy">
+            <div class="gallery-overlay"><span>View</span></div>
+          </div>
+          <div class="gallery-item" data-category="commercial">
+            <img src="images/img-13-400x284.jpg" alt="Standing Ovation cleaning project 13" loading="lazy">
+            <div class="gallery-overlay"><span>View</span></div>
+          </div>
+          <div class="gallery-item" data-category="commercial">
+            <img src="images/img-14-400x284.jpg" alt="Standing Ovation cleaning project 14" loading="lazy">
+            <div class="gallery-overlay"><span>View</span></div>
+          </div>
+          <div class="gallery-item" data-category="before-after">
+            <img src="images/img-15-400x284.jpg" alt="Standing Ovation cleaning project 15" loading="lazy">
+            <div class="gallery-overlay"><span>View</span></div>
+          </div>
+          <div class="gallery-item" data-category="before-after">
+            <img src="images/img-16-400x284.jpg" alt="Standing Ovation cleaning project 16" loading="lazy">
+            <div class="gallery-overlay"><span>View</span></div>
+          </div>
+          <div class="gallery-item" data-category="before-after">
+            <img src="images/img-17-400x284.jpg" alt="Standing Ovation cleaning project 17" loading="lazy">
+            <div class="gallery-overlay"><span>View</span></div>
+          </div>
+          <div class="gallery-item" data-category="before-after">
+            <img src="images/img-18-400x284.jpg" alt="Standing Ovation cleaning project 18" loading="lazy">
+            <div class="gallery-overlay"><span>View</span></div>
+          </div>
+          <div class="gallery-item" data-category="before-after">
+            <img src="images/img-19-400x284.jpg" alt="Standing Ovation cleaning project 19" loading="lazy">
+            <div class="gallery-overlay"><span>View</span></div>
+          </div>
+          <div class="gallery-item" data-category="before-after">
+            <img src="images/img-20-400x284.jpg" alt="Standing Ovation cleaning project 20" loading="lazy">
+            <div class="gallery-overlay"><span>View</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Lightbox Modal -->
+  <div class="lightbox-overlay" role="dialog" aria-modal="true" aria-label="Image lightbox">
+    <button class="lightbox-close" type="button" aria-label="Close lightbox">&times;</button>
+    <button class="lightbox-prev" type="button" aria-label="Previous image">&#10094;</button>
+    <div class="lightbox-content">
+      <img src="" alt="">
+    </div>
+    <button class="lightbox-next" type="button" aria-label="Next image">&#10095;</button>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer" id="contact">
+    <div class="container">
+      <div class="footer-logo">
+        <a href="index.html">
+          <img src="images/logo-cutout-1.png" alt="Standing Ovation Cleaning Company logo" loading="lazy">
+        </a>
+      </div>
+
+      <ul class="footer-social">
+        <li>
+          <a href="https://www.facebook.com/standingovationcleaningcompany" target="_blank" rel="noopener" aria-label="Facebook">
+            <img src="images/facebook-black.png" alt="Facebook icon" loading="lazy">
+          </a>
+        </li>
+        <li>
+          <a href="https://twitter.com/intent/tweet?text=Standing+Ovation+Cleaning+Company+LLC&amp;url=https%3A%2F%2Fcleaningcompany.us" target="_blank" rel="noopener" aria-label="Twitter">
+            <img src="images/twitter-black.png" alt="Twitter icon" loading="lazy">
+          </a>
+        </li>
+        <li>
+          <a href="https://www.instagram.com/standingovation_cleaning/" target="_blank" rel="noopener" aria-label="Instagram">
+            <img src="images/instagram-black.png" alt="Instagram icon" loading="lazy">
+          </a>
+        </li>
+      </ul>
+
+      <div class="payment-icons">
+        <img src="images/images.png" alt="Credit card payments accepted" loading="lazy">
+        <img src="images/cashapp-icon-2048x2047-bgl2c1jd.png" alt="CashApp payments accepted" loading="lazy">
+        <img src="images/ov2lgrxqttiauqhbpsqf.png" alt="Additional payment method accepted" loading="lazy">
+      </div>
+
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+
+      <p class="copyright">Copyright &copy; 2026 Standing Ovation Cleaning Services</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
