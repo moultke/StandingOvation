@@ -360,4 +360,20 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // -------------------------------------------------------
+  // 9. Form Submission Success Message
+  // -------------------------------------------------------
+
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('submitted') === 'true') {
+    const successMsg = document.getElementById('form-success');
+    const form = document.querySelector('.contact-form, .booking-form');
+    if (successMsg && form) {
+      form.style.display = 'none';
+      successMsg.style.display = 'block';
+      // Scroll to the success message
+      successMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }
+
 });

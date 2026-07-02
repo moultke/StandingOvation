@@ -176,7 +176,10 @@
           <h2>Contact Us</h2>
         </div>
 
-        <form class="contact-form" action="#" method="POST">
+        <form class="contact-form" action="https://formspree.io/f/standingovationcleaning@mail.com" method="POST">
+          <input type="hidden" name="_subject" value="New Contact Form Submission - Standing Ovation Cleaning">
+          <input type="hidden" name="_next" value="https://thankful-grass-0f395e610.7.azurestaticapps.net/contact.html?submitted=true">
+
           <div class="form-row">
             <div class="form-group">
               <label for="first-name">First Name</label>
@@ -206,6 +209,12 @@
 
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>
+
+        <!-- Success message (shown after form submission) -->
+        <div id="form-success" class="form-success" style="display:none;">
+          <h3>Thank you for your message!</h3>
+          <p>We'll get back to you as soon as possible.</p>
+        </div>
       </div>
     </section>
 

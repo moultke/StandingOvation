@@ -1619,6 +1619,30 @@ ul {
   margin-top: 4px;
 }
 
+/* Form Success Message */
+.form-success {
+  text-align: center;
+  padding: 60px 40px;
+  background: var(--color-white);
+  border-radius: 10px;
+  box-shadow: 0 4px 34px rgba(0, 0, 0, 0.07);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.form-success h3 {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--color-purple);
+  margin-bottom: 12px;
+}
+
+.form-success p {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--color-text-gray);
+}
+
 /* ----------------------------------------------------------
    Responsive — 1181px
    ---------------------------------------------------------- */
